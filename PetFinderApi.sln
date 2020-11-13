@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetFinderApi", "PetFinderApi\PetFinderApi.csproj", "{1CF5274C-D41A-4975-9ED4-AA299A0F1A31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CF5274C-D41A-4975-9ED4-AA299A0F1A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CF5274C-D41A-4975-9ED4-AA299A0F1A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CF5274C-D41A-4975-9ED4-AA299A0F1A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CF5274C-D41A-4975-9ED4-AA299A0F1A31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97897929-0299-4D7F-85B6-3D2129DC5AC0}
+	EndGlobalSection
+EndGlobal
