@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace PetFinderApi.Models
 {
-    public class Person
+    public class Entity
     {
         [Key]
-        public long idPerson { get; set; } 
+        public long idEntity { get; set; } 
 
         [Required]
-        [Column(TypeName ="varchar(15)")]
+        [Column(TypeName ="varchar(20)")]
         public string Identification { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(100)")]
+        [Column(TypeName = "varchar(200)")]
         public string Name { get; set; }
 
         [Required]
@@ -29,10 +29,16 @@ namespace PetFinderApi.Models
         [Phone]
         public string PhoneNumber { get; set; }
 
+        public bool Whatsapp { get; set; }
+
         [EmailAddress]
         public string Email { get; set; }
 
+        public string Facebook { get; set; }
+
         public string Address { get; set; }
+
+        public string Photo { get; set; }
 
     }
 }
