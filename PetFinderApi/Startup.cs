@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PetFinderApi.Data;
 
 namespace PetFinderApi
 {
@@ -25,6 +26,14 @@ namespace PetFinderApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<FinderContext>();
+
+            services.AddMvc().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling 
+            = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddCors(caption => caption.AddPolicy("AllowWebApp", builder => 
+            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
             services.AddControllers();
         }
 
@@ -35,6 +44,8 @@ namespace PetFinderApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowWebApp");
 
             app.UseHttpsRedirection();
 

@@ -23,9 +23,7 @@ namespace PetFinderApi.Models
         [Column(TypeName = ("varchar(80)"))]
         public string Race { get; set; }
 
-        public DateTime Age { get; set; }
-
-        public DateTime RescueDate { get; set; }
+        public int Age { get; set; }
 
         public string Size { get; set; }
 

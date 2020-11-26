@@ -19,10 +19,14 @@ namespace PetFinderApi.Models
         [ForeignKey("idPet")]
         public Pet pet { get; set; }
 
+
         [Required]
         public long ReportedBy { get; set; }
         [ForeignKey("idEntity")]
         public Entity entity { get; set; }
+
+        public List<Pet> pets { get; set; }
+        public List<Entity> entities { get; set; }
 
     }
 }
