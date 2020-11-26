@@ -9,9 +9,9 @@ namespace PetFinderApi.Data
 {
     public class FinderContext : DbContext
     {
-        public DbSet<Pet> pets { get; set; }
-        public DbSet<Entity> entities { get; set; }
-        public DbSet<Report> reports { get; set; }
+        public DbSet<Pet> Pets { get; set; }
+        public DbSet<Entity> Entities { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder option)
         {
