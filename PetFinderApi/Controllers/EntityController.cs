@@ -30,7 +30,7 @@ namespace PetFinderApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Entity>> GetEntity(long id)
         {
-            var entity = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.idEntity == id);
+            var entity = await _DbFinder.Entities.FindAsync(id);
 
             if (entity == null)
             {
@@ -67,7 +67,7 @@ namespace PetFinderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Entity>> DeleteEntity(long id)
         {
-            var entity = _DbFinder.Entities.FirstOrDefaultAsync(e => e.idEntity == id);
+            var entity = _DbFinder.Entities.FindAsync(id);
 
             if (entity == null)
             {

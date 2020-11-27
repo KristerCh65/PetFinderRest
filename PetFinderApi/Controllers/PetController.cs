@@ -32,7 +32,7 @@ namespace PetFinderApi.Controllers
 
         public async Task<ActionResult<Pet>> GetPet(long id)
         {
-            var pet = await _DbFinder.Pets.FirstOrDefaultAsync(p => p.idPet == id);
+            var pet = await _DbFinder.Pets.FindAsync(id);
 
             if(pet == null)
             {
@@ -69,14 +69,14 @@ namespace PetFinderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePet(long id)
         {
-            var pet = await _DbFinder.Pets.FirstAsync(p => p.idPet == id);
+            var pet = await _DbFinder.Pets.FindAsync(id);
 
             if(pet == null)
             {
                 return NotFound();
             }
 
-            _DbFinder.Pets.RemoveRange(pet);
+            _DbFinder.Pets.Remove(pet);
 
             await _DbFinder.SaveChangesAsync();
 
