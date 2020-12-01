@@ -16,9 +16,13 @@ namespace PetFinderApi.Controllers
     {
         public readonly FinderContext _DbFinder;
 
-        public EntityController(FinderContext finder)
+        public readonly EntityAppService _entityService;
+
+        public EntityController(FinderContext finder, EntityAppService _appService)
         {
             _DbFinder = finder;
+
+            _entityService = _appService;
         }
 
         [HttpGet]
@@ -43,23 +47,30 @@ namespace PetFinderApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Entity>> PostEntity(Entity entity)
         {
-            _DbFinder.Entities.Add(entity);
+            var responseEntity = await _entityService.PostEntity(entity);
 
-            await _DbFinder.SaveChangesAsync();
+            bool notError = responseEntity == null;
 
-            return CreatedAtAction(nameof(GetEntity), new { });
+            if(notError)
+            {
+                return CreatedAtAction(nameof(GetEntity), new { id = entity.idEntity }, entity);
+            }
+
+            return BadRequest(responseEntity);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Entity>> PutEntity(Entity entity, long id)
         {
-            if (id != entity.idEntity)
-            {
-                return BadRequest();
-            }
+            var responseService = await _entityService.PutEntity(entity, id);
 
-            _DbFinder.Entry(entity).State = EntityState.Modified;
-            await _DbFinder.SaveChangesAsync();
+            bool AllGood = responseService == null;
+
+            if (AllGood)
+            {
+                _DbFinder.Entry(entity).State = EntityState.Modified;
+                await _DbFinder.SaveChangesAsync();
+            }
 
             return entity;
         }
@@ -67,14 +78,15 @@ namespace PetFinderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Entity>> DeleteEntity(long id)
         {
-            var entity = _DbFinder.Entities.FindAsync(id);
+            var entity = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.idEntity == id);
 
             if (entity == null)
             {
                 return NotFound();
             }
 
-            _DbFinder.Remove(entity);
+            _DbFinder.Entities.Remove(entity);
+
             await _DbFinder.SaveChangesAsync();
 
             return NoContent();

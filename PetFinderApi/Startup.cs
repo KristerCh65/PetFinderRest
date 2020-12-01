@@ -27,6 +27,7 @@ namespace PetFinderApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<FinderContext>();
+            services.AddScoped<EntityAppService>();
 
             services.AddMvc().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling 
             = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
