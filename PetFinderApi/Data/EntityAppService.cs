@@ -22,9 +22,16 @@ namespace PetFinderApi.Data
 
             var identidad = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.Identification == entity.Identification);
 
+            var user = await _DbFinder.Entities.FirstOrDefaultAsync(u => u.UserName == entity.UserName);
+
             if (email != null)
             {
                 return "Email Exists!";
+            }
+
+            if (user != null)
+            {
+                return "UserName Exists!";
             }
 
             if (identidad != null)
@@ -50,9 +57,16 @@ namespace PetFinderApi.Data
 
             var identidad = await _DbFinder.Entities.FindAsync(entity.Identification);
 
+            var user = await _DbFinder.Entities.FirstOrDefaultAsync(u => u.UserName == entity.UserName);
+
             if (email != null)
             {
                 return "Email Exists!";
+            }
+
+            if (user != null)
+            {
+                return "UserName Exists!";
             }
 
             if (identidad != null)
