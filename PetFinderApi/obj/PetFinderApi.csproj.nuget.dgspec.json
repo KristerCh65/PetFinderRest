@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DevChallenge\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj": {}
+    "C:\\Users\\Angel\\Documents\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj": {}
   },
   "projects": {
-    "D:\\DevChallenge\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj": {
+    "C:\\Users\\Angel\\Documents\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DevChallenge\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
+        "projectUniqueName": "C:\\Users\\Angel\\Documents\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
         "projectName": "PetFinderApi",
-        "projectPath": "D:\\DevChallenge\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
-        "packagesPath": "C:\\Users\\KBMCh\\.nuget\\packages\\",
-        "outputPath": "D:\\DevChallenge\\PetFinderApi\\PetFinderApi\\obj\\",
+        "projectPath": "C:\\Users\\Angel\\Documents\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
+        "packagesPath": "C:\\Users\\Angel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Angel\\Documents\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\KBMCh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -75,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
