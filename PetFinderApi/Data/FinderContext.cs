@@ -18,7 +18,5 @@ namespace PetFinderApi.Data
             option.UseSqlServer(@"Server=DESKTOP-C2JN085;Database=PetFinderDB;Trusted_Connection=true;");
         }
 
-
-
     }
 }
