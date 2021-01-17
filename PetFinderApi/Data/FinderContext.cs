@@ -15,10 +15,8 @@ namespace PetFinderApi.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder option)
         {
-            option.UseSqlServer(@"Server=DESKTOP-C2JN085;Database=PetFinderDB;Trusted_Connection=true;");
+            option.UseSqlServer(@"Server=DESKTOP-0S6O742;Database=PetFinderDB;Trusted_Connection=true;");
         }
-
-
 
     }
 }

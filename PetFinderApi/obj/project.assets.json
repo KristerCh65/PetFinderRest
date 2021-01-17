@@ -5502,23 +5502,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Angel\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\KBMCh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Angel\\Documents\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
+      "projectUniqueName": "C:\\Users\\KBMCh\\OneDrive\\Documentos\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
       "projectName": "PetFinderApi",
-      "projectPath": "C:\\Users\\Angel\\Documents\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
-      "packagesPath": "C:\\Users\\Angel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Angel\\Documents\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\obj\\",
+      "projectPath": "C:\\Users\\KBMCh\\OneDrive\\Documentos\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
+      "packagesPath": "C:\\Users\\KBMCh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\KBMCh\\OneDrive\\Documentos\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\KBMCh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5530,6 +5526,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -5541,6 +5538,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
             "target": "Package",
@@ -5579,7 +5577,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

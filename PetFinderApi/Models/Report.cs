@@ -10,23 +10,17 @@ namespace PetFinderApi.Models
     public class Report
     {
         [Key]
-        public long Case { get; set; }
+        public long id { get; set; }
 
         public DateTime RescueDate { get; set; }
 
-        [Required]
-        public long PetLost { get; set; }
+        public long idPet { get; set; }
         [ForeignKey("idPet")]
         public Pet pet { get; set; }
 
-
-        [Required]
-        public long ReportedBy { get; set; }
+        public long idEntity { get; set; }
         [ForeignKey("idEntity")]
         public Entity entity { get; set; }
-
-        public List<Pet> pets { get; set; }
-        public List<Entity> entities { get; set; }
 
     }
 }

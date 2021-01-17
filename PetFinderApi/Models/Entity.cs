@@ -17,6 +17,8 @@ namespace PetFinderApi.Models
         [Column(TypeName ="varchar(20)")]
         public string Identification { get; set; }
 
+        public string auth0Id { get; set; }
+
         [Required]
         public string UserName { get; set; }
 

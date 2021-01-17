@@ -24,6 +24,7 @@ namespace PetFinderApi.Data
 
             var user = await _DbFinder.Entities.FirstOrDefaultAsync(u => u.UserName == entity.UserName);
 
+
             if (email != null)
             {
                 return "Email Exists!";

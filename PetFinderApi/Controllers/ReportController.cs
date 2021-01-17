@@ -24,7 +24,7 @@ namespace PetFinderApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Report>>> GetReports()
         {
-            return await _DbFinder.Reports.Include(p => p.pets).Include(e => e.entities).ToListAsync();
+            return await _DbFinder.Reports.Include(p => p.pet).Include(e => e.entity).ToListAsync();
         }
 
         [HttpGet("{id}")]
@@ -43,17 +43,44 @@ namespace PetFinderApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Report>> PostReport(Report report)
         {
-            _DbFinder.Reports.Add(report);
+
+            var p = new Pet();
+
+            p.NamePet = report.pet.NamePet;
+            p.Specie = report.pet.Specie;
+            p.Race = report.pet.Race;
+            p.Age = report.pet.Age;
+            p.Size = report.pet.Size;
+            p.Photo = report.pet.Photo;
+
+            _DbFinder.Pets.Add(p);
+            try
+            {
+                await _DbFinder.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
+            _DbFinder.Reports.Add(new Report
+            {
+                RescueDate = report.RescueDate,
+                idEntity = report.idEntity,
+                idPet = p.idPet
+            });
             await _DbFinder.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetReport), new { id = report.Case }, report);
+
+            return CreatedAtAction("GetReport", new { id = report.id }, report);
 
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Report>> PutReport(long id, Report report)
         {
-            if (id != report.Case)
+            if (id != report.id)
             {
                 return BadRequest();
             }
@@ -67,7 +94,7 @@ namespace PetFinderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Report>> DeleteReport(long id)
         {
-            var report = await _DbFinder.Reports.FirstAsync(r => r.Case == id);
+            var report = await _DbFinder.Reports.FirstAsync(r => r.id == id);
 
             if(report == null)
             {

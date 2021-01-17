@@ -10,8 +10,8 @@ using PetFinderApi.Data;
 namespace PetFinderApi.Migrations
 {
     [DbContext(typeof(FinderContext))]
-    [Migration("20201223054149_secondMIgration")]
-    partial class secondMIgration
+    [Migration("20210117212418_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,9 +56,6 @@ namespace PetFinderApi.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("ReportCase")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -66,9 +63,10 @@ namespace PetFinderApi.Migrations
                     b.Property<bool>("Whatsapp")
                         .HasColumnType("bit");
 
-                    b.HasKey("idEntity");
+                    b.Property<long>("auth0Id")
+                        .HasColumnType("bigint");
 
-                    b.HasIndex("ReportCase");
+                    b.HasKey("idEntity");
 
                     b.ToTable("Entities");
                 });
@@ -93,9 +91,6 @@ namespace PetFinderApi.Migrations
                     b.Property<string>("Race")
                         .HasColumnType("varchar(80)");
 
-                    b.Property<long?>("ReportCase")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
@@ -105,34 +100,26 @@ namespace PetFinderApi.Migrations
 
                     b.HasKey("idPet");
 
-                    b.HasIndex("ReportCase");
-
                     b.ToTable("Pets");
                 });
 
             modelBuilder.Entity("PetFinderApi.Models.Report", b =>
                 {
-                    b.Property<long>("Case")
+                    b.Property<long>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<long>("PetLost")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ReportedBy")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("RescueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("idEntity")
+                    b.Property<long>("idEntity")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("idPet")
+                    b.Property<long>("idPet")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Case");
+                    b.HasKey("id");
 
                     b.HasIndex("idEntity");
 
@@ -141,40 +128,23 @@ namespace PetFinderApi.Migrations
                     b.ToTable("Reports");
                 });
 
-            modelBuilder.Entity("PetFinderApi.Models.Entity", b =>
-                {
-                    b.HasOne("PetFinderApi.Models.Report", null)
-                        .WithMany("entities")
-                        .HasForeignKey("ReportCase");
-                });
-
-            modelBuilder.Entity("PetFinderApi.Models.Pet", b =>
-                {
-                    b.HasOne("PetFinderApi.Models.Report", null)
-                        .WithMany("pets")
-                        .HasForeignKey("ReportCase");
-                });
-
             modelBuilder.Entity("PetFinderApi.Models.Report", b =>
                 {
                     b.HasOne("PetFinderApi.Models.Entity", "entity")
                         .WithMany()
-                        .HasForeignKey("idEntity");
+                        .HasForeignKey("idEntity")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PetFinderApi.Models.Pet", "pet")
                         .WithMany()
-                        .HasForeignKey("idPet");
+                        .HasForeignKey("idPet")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("entity");
 
                     b.Navigation("pet");
-                });
-
-            modelBuilder.Entity("PetFinderApi.Models.Report", b =>
-                {
-                    b.Navigation("entities");
-
-                    b.Navigation("pets");
                 });
 #pragma warning restore 612, 618
         }
