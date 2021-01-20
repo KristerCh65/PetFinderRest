@@ -16,6 +16,18 @@ namespace PetFinderApi.Data
             _DbFinder = _context;
         }
 
+        public async Task<Boolean> GetByAuth(string authId)
+        {
+            var entity = await _DbFinder.Entities.FirstOrDefaultAsync(x => x.auth0Id == authId);
+
+            if(entity != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<string> PostEntity(Entity entity)
         {
             var email = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.Email == entity.Email);

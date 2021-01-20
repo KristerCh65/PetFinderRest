@@ -96,6 +96,9 @@ namespace PetFinderApi.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(20)");
 
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("idPet");
 
                     b.ToTable("Pets");
@@ -110,6 +113,9 @@ namespace PetFinderApi.Migrations
 
                     b.Property<DateTime>("RescueDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("idEntity")
                         .HasColumnType("bigint");

@@ -10,8 +10,8 @@ using PetFinderApi.Data;
 namespace PetFinderApi.Migrations
 {
     [DbContext(typeof(FinderContext))]
-    [Migration("20210117212418_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20210118003813_FinderMigration")]
+    partial class FinderMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,8 +63,8 @@ namespace PetFinderApi.Migrations
                     b.Property<bool>("Whatsapp")
                         .HasColumnType("bit");
 
-                    b.Property<long>("auth0Id")
-                        .HasColumnType("bigint");
+                    b.Property<string>("auth0Id")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("idEntity");
 
@@ -98,6 +98,9 @@ namespace PetFinderApi.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(20)");
 
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("idPet");
 
                     b.ToTable("Pets");
@@ -112,6 +115,9 @@ namespace PetFinderApi.Migrations
 
                     b.Property<DateTime>("RescueDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("idEntity")
                         .HasColumnType("bigint");

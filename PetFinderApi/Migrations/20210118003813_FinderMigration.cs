@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PetFinderApi.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class FinderMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace PetFinderApi.Migrations
                     idEntity = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Identification = table.Column<string>(type: "varchar(20)", nullable: false),
-                    auth0Id = table.Column<long>(type: "bigint", nullable: false),
+                    auth0Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     LastName = table.Column<string>(type: "varchar(100)", nullable: false),
@@ -41,7 +41,8 @@ namespace PetFinderApi.Migrations
                     Race = table.Column<string>(type: "varchar(80)", nullable: true),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,6 +56,7 @@ namespace PetFinderApi.Migrations
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RescueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     idPet = table.Column<long>(type: "bigint", nullable: false),
                     idEntity = table.Column<long>(type: "bigint", nullable: false)
                 },

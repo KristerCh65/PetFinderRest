@@ -34,13 +34,26 @@ namespace PetFinderApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Entity>> GetEntity(long id)
         {
-            var entity = await _DbFinder.Entities.FindAsync(id);
+            var entity = await _DbFinder.Entities.FirstOrDefaultAsync(x => x.idEntity == id);
 
             if (entity == null)
             {
                 return NotFound();
             }
 
+            return entity;
+        }
+
+        [HttpGet]
+        [Route("getByAuth/{authId}")]
+        public async Task<ActionResult<Entity>> GetByAuth(string authId)
+        {
+            var entity = await _DbFinder.Entities.FirstOrDefaultAsync(x => x.auth0Id == authId);
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
             return entity;
         }
 

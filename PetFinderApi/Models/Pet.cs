@@ -29,5 +29,6 @@ namespace PetFinderApi.Models
 
         public string Photo { get; set; }
 
+        public string description { get; set; }
     }
 }

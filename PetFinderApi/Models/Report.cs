@@ -14,6 +14,8 @@ namespace PetFinderApi.Models
 
         public DateTime RescueDate { get; set; }
 
+        public string Status { get; set; }
+
         public long idPet { get; set; }
         [ForeignKey("idPet")]
         public Pet pet { get; set; }

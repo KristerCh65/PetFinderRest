@@ -49,6 +49,7 @@ namespace PetFinderApi.Controllers
             p.NamePet = report.pet.NamePet;
             p.Specie = report.pet.Specie;
             p.Race = report.pet.Race;
+            p.description = report.pet.description;
             p.Age = report.pet.Age;
             p.Size = report.pet.Size;
             p.Photo = report.pet.Photo;
@@ -68,7 +69,8 @@ namespace PetFinderApi.Controllers
             {
                 RescueDate = report.RescueDate,
                 idEntity = report.idEntity,
-                idPet = p.idPet
+                idPet = p.idPet,
+                Status = report.Status
             });
             await _DbFinder.SaveChangesAsync();
 
