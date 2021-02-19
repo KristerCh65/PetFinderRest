@@ -30,7 +30,7 @@ namespace PetFinderApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Report>> GetReport(long id)
         {
-            var report = await _DbFinder.Reports.FindAsync(id);
+            var report = await _DbFinder.Reports.Include(p => p.pet).Include(p => p.entity).FirstOrDefaultAsync(x => x.id == id);
 
             if (report == null)
             {

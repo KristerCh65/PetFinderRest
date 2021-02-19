@@ -130,3 +130,4 @@ C:\Users\KBMCh\OneDrive\Documentos\Visual Studio 2019\PetFinderApi\PetFinderApi\
 C:\Users\KBMCh\OneDrive\Documentos\Visual Studio 2019\PetFinderApi\PetFinderApi\obj\Debug\netcoreapp3.1\PetFinderApi.dll
 C:\Users\KBMCh\OneDrive\Documentos\Visual Studio 2019\PetFinderApi\PetFinderApi\obj\Debug\netcoreapp3.1\PetFinderApi.pdb
 C:\Users\KBMCh\OneDrive\Documentos\Visual Studio 2019\PetFinderApi\PetFinderApi\obj\Debug\netcoreapp3.1\PetFinderApi.genruntimeconfig.cache
+C:\Users\KBMCh\OneDrive\Documentos\Visual Studio 2019\PetFinderApi\PetFinderApi\bin\Debug\netcoreapp3.1\MimeTypeMap.List.dll

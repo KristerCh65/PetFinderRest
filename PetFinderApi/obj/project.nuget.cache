@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q5ZCNR6aThRUeDWe4RYclPbZwkZnHdpJCOh5kKIkDMXjumK4sNdDKAser9kbFKRqaqcn1Yc56caxQK5FPQ8sbA==",
+  "dgSpecHash": "i8Jv+KbPlPOlZA/lnSwT/zlg2RwTAo0Gb89NYGgloHPpV4Nzo7kR58w3wjmITwP9IMlGK3yFJAcBN+y7CR4tqg==",
   "success": true,
   "projectFilePath": "C:\\Users\\KBMCh\\OneDrive\\Documentos\\Visual Studio 2019\\PetFinderApi\\PetFinderApi\\PetFinderApi.csproj",
   "expectedPackageFiles": [
@@ -36,6 +36,7 @@
     "C:\\Users\\KBMCh\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
     "C:\\Users\\KBMCh\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\KBMCh\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\KBMCh\\.nuget\\packages\\mimetypemap.list\\2.0.2\\mimetypemap.list.2.0.2.nupkg.sha512",
     "C:\\Users\\KBMCh\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\KBMCh\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\KBMCh\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",

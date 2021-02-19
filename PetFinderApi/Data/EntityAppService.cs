@@ -66,25 +66,11 @@ namespace PetFinderApi.Data
                 return "Not Found";
             }
 
-            var email = await _DbFinder.Entities.FindAsync(entity.Email);
+            var idEntidad = await _DbFinder.Entities.FirstOrDefaultAsync(i => i.idEntity == entity.idEntity);
 
-            var identidad = await _DbFinder.Entities.FindAsync(entity.Identification);
-
-            var user = await _DbFinder.Entities.FirstOrDefaultAsync(u => u.UserName == entity.UserName);
-
-            if (email != null)
+            if (idEntidad == null)
             {
-                return "Email Exists!";
-            }
-
-            if (user != null)
-            {
-                return "UserName Exists!";
-            }
-
-            if (identidad != null)
-            {
-                return "ID Duplicated!";
+                return "ID doesnt exists!";
             }
 
             return null;

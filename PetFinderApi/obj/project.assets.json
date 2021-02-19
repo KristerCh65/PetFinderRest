@@ -460,6 +460,15 @@
           }
         }
       },
+      "MimeTypeMap.List/2.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/MimeTypeMap.List.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/MimeTypeMap.List.dll": {}
+        }
+      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -2200,6 +2209,19 @@
         "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.xml",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "MimeTypeMap.List/2.0.2": {
+      "sha512": "wqVjnuMW+Ow3XkLXOlm5R9R9G2OwkWMiHGJz4qoh+Fub9sXBoHSKUIrLi+CcvLMt3jBRQ+IgoeScIc7q1iaApA==",
+      "type": "package",
+      "path": "mimetypemap.list/2.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard1.0/MimeTypeMap.List.dll",
+        "lib/netstandard1.0/MimeTypeMap.List.pdb",
+        "mimetypemap.list.2.0.2.nupkg.sha512",
+        "mimetypemap.list.nuspec"
       ]
     },
     "Newtonsoft.Json/12.0.3": {
@@ -5498,6 +5520,7 @@
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 3.1.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.0",
+      "MimeTypeMap.List >= 2.0.2",
       "Newtonsoft.Json >= 12.0.3"
     ]
   },
@@ -5553,6 +5576,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[5.0.0, )"
+          },
+          "MimeTypeMap.List": {
+            "target": "Package",
+            "version": "[2.0.2, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

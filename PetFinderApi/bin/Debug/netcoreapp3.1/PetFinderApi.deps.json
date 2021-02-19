@@ -27,6 +27,7 @@
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.0",
+          "MimeTypeMap.List": "2.0.2",
           "Newtonsoft.Json": "12.0.3",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
@@ -737,6 +738,17 @@
       "Microsoft.Win32.SystemEvents/4.7.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0"
+        }
+      },
+      "MimeTypeMap.List/2.0.2": {
+        "runtime": {
+          "lib/netstandard1.0/MimeTypeMap.List.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.0/MimeTypeMap.List.dll": {}
         }
       },
       "Newtonsoft.Json/12.0.3": {
@@ -3202,6 +3214,13 @@
       "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "MimeTypeMap.List/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wqVjnuMW+Ow3XkLXOlm5R9R9G2OwkWMiHGJz4qoh+Fub9sXBoHSKUIrLi+CcvLMt3jBRQ+IgoeScIc7q1iaApA==",
+      "path": "mimetypemap.list/2.0.2",
+      "hashPath": "mimetypemap.list.2.0.2.nupkg.sha512"
     },
     "Newtonsoft.Json/12.0.3": {
       "type": "package",
