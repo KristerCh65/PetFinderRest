@@ -53,11 +53,11 @@ namespace PetFinderApi.Data
                 return "Not Found";
             }
 
-            var email = await _DbFinder.Entities.FindAsync(entity.Email);
+            var email = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.Email == entity.Email && e.idEntity != id);
 
-            var identidad = await _DbFinder.Entities.FindAsync(entity.Identification);
+            var identidad = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.Identification == entity.Identification && e.idEntity != id);
 
-            var user = await _DbFinder.Entities.FirstOrDefaultAsync(u => u.UserName == entity.UserName);
+            var user = await _DbFinder.Entities.FirstOrDefaultAsync(u => u.UserName == entity.UserName && u.idEntity != id);
 
             if (email != null)
             {

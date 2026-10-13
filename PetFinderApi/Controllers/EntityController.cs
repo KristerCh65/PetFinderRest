@@ -66,11 +66,13 @@ namespace PetFinderApi.Controllers
 
             bool AllGood = responseService == null;
 
-            if (AllGood)
+            if (!AllGood)
             {
-                _DbFinder.Entry(entity).State = EntityState.Modified;
-                await _DbFinder.SaveChangesAsync();
+                return BadRequest(responseService);
             }
+
+            _DbFinder.Entry(entity).State = EntityState.Modified;
+            await _DbFinder.SaveChangesAsync();
 
             return entity;
         }

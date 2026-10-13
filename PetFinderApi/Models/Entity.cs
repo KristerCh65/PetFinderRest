@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace PetFinderApi.Models
@@ -18,6 +17,7 @@ namespace PetFinderApi.Models
         public string Identification { get; set; }
 
         [Required]
+        [MaxLength(50)]
         public string UserName { get; set; }
 
         [Required]
@@ -35,6 +35,7 @@ namespace PetFinderApi.Models
         public bool Whatsapp { get; set; }
 
         [EmailAddress]
+        [MaxLength(256)]
         public string Email { get; set; }
 
         public string Facebook { get; set; }

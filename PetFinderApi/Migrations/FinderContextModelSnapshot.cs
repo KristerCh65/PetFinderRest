@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetFinderApi.Data;
 
+#nullable disable
+
 namespace PetFinderApi.Migrations
 {
     [DbContext(typeof(FinderContext))]
@@ -15,22 +17,25 @@ namespace PetFinderApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("PetFinderApi.Models.Entity", b =>
                 {
                     b.Property<long>("idEntity")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("idEntity"));
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Facebook")
                         .HasColumnType("nvarchar(max)");
@@ -54,19 +59,25 @@ namespace PetFinderApi.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("ReportCase")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("Whatsapp")
                         .HasColumnType("bit");
 
                     b.HasKey("idEntity");
 
-                    b.HasIndex("ReportCase");
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.HasIndex("Identification")
+                        .IsUnique();
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("Entities");
                 });
@@ -75,8 +86,9 @@ namespace PetFinderApi.Migrations
                 {
                     b.Property<long>("idPet")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("idPet"));
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -91,9 +103,6 @@ namespace PetFinderApi.Migrations
                     b.Property<string>("Race")
                         .HasColumnType("varchar(80)");
 
-                    b.Property<long?>("ReportCase")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
@@ -103,8 +112,6 @@ namespace PetFinderApi.Migrations
 
                     b.HasKey("idPet");
 
-                    b.HasIndex("ReportCase");
-
                     b.ToTable("Pets");
                 });
 
@@ -112,8 +119,9 @@ namespace PetFinderApi.Migrations
                 {
                     b.Property<long>("Case")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Case"));
 
                     b.Property<long>("PetLost")
                         .HasColumnType("bigint");
@@ -124,55 +132,32 @@ namespace PetFinderApi.Migrations
                     b.Property<DateTime>("RescueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("idEntity")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("idPet")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Case");
 
-                    b.HasIndex("idEntity");
+                    b.HasIndex("PetLost");
 
-                    b.HasIndex("idPet");
+                    b.HasIndex("ReportedBy");
 
                     b.ToTable("Reports");
                 });
 
-            modelBuilder.Entity("PetFinderApi.Models.Entity", b =>
-                {
-                    b.HasOne("PetFinderApi.Models.Report", null)
-                        .WithMany("entities")
-                        .HasForeignKey("ReportCase");
-                });
-
-            modelBuilder.Entity("PetFinderApi.Models.Pet", b =>
-                {
-                    b.HasOne("PetFinderApi.Models.Report", null)
-                        .WithMany("pets")
-                        .HasForeignKey("ReportCase");
-                });
-
             modelBuilder.Entity("PetFinderApi.Models.Report", b =>
                 {
-                    b.HasOne("PetFinderApi.Models.Entity", "entity")
-                        .WithMany()
-                        .HasForeignKey("idEntity");
-
                     b.HasOne("PetFinderApi.Models.Pet", "pet")
                         .WithMany()
-                        .HasForeignKey("idPet");
+                        .HasForeignKey("PetLost")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PetFinderApi.Models.Entity", "entity")
+                        .WithMany()
+                        .HasForeignKey("ReportedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("entity");
 
                     b.Navigation("pet");
-                });
-
-            modelBuilder.Entity("PetFinderApi.Models.Report", b =>
-                {
-                    b.Navigation("entities");
-
-                    b.Navigation("pets");
                 });
 #pragma warning restore 612, 618
         }

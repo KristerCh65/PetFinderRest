@@ -24,13 +24,13 @@ namespace PetFinderApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Report>>> GetReports()
         {
-            return await _DbFinder.Reports.Include(p => p.pets).Include(e => e.entities).ToListAsync();
+            return await _DbFinder.Reports.Include(r => r.pet).Include(r => r.entity).ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Report>> GetReport(long id)
         {
-            var report = await _DbFinder.Reports.FindAsync(id);
+            var report = await _DbFinder.Reports.Include(r => r.pet).Include(r => r.entity).FirstOrDefaultAsync(r => r.Case == id);
 
             if (report == null)
             {
@@ -67,7 +67,7 @@ namespace PetFinderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Report>> DeleteReport(long id)
         {
-            var report = await _DbFinder.Reports.FirstAsync(r => r.Case == id);
+            var report = await _DbFinder.Reports.FirstOrDefaultAsync(r => r.Case == id);
 
             if(report == null)
             {
