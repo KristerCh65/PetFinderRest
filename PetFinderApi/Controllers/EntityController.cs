@@ -65,11 +65,17 @@ namespace PetFinderApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Entity>> PostEntity(Entity entity)
         {
-            var identificador = entity.auth0Id + "-" + DateTime.Now.ToString();
+            var identificador = SanitizeFileNamePart(entity.auth0Id + "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
 
             var byteArrayImageConversion = new ByteArrayImageConversion(/*"data:image/png;base64," + */ entity.Photo);
 
-            string filePath = Path.Combine(_hostEnvironment.WebRootPath + "\\profile_photos", identificador + byteArrayImageConversion.Extension);
+            var extension = Path.GetExtension(byteArrayImageConversion.Extension);
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                extension = ".bin";
+            }
+
+            string filePath = Path.Combine(_hostEnvironment.WebRootPath, "profile_photos", identificador + extension);
 
             if (byteArrayImageConversion.IsSuccesfull)
             {
@@ -82,7 +88,7 @@ namespace PetFinderApi.Controllers
 
             var direccionRequest = Url.Content("~/");
 
-            var requestImage = "/profile_photos/" + identificador + byteArrayImageConversion.Extension;
+            var requestImage = "/profile_photos/" + identificador + extension;
 
             entity.Photo = requestImage;
 
@@ -137,7 +143,11 @@ namespace PetFinderApi.Controllers
 
         }
 
+        private static string SanitizeFileNamePart(string value)
+        {
+            var invalidChars = Path.GetInvalidFileNameChars();
+            var sanitized = new string(value.Where(c => !invalidChars.Contains(c)).ToArray());
+            return string.IsNullOrWhiteSpace(sanitized) ? Guid.NewGuid().ToString("N") : sanitized;
+        }
     }
-
-
 }
