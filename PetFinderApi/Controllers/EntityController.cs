@@ -65,37 +65,37 @@ namespace PetFinderApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Entity>> PostEntity(Entity entity)
         {
-            var identificador = entity.auth0Id + "-" + DateTime.Now.ToString();
+            var byteArrayImageConversion = new ByteArrayImageConversion(entity.Photo);
 
-            var byteArrayImageConversion = new ByteArrayImageConversion(/*"data:image/png;base64," + */ entity.Photo);
-
-            string filePath = Path.Combine(_hostEnvironment.WebRootPath + "\\profile_photos", identificador + byteArrayImageConversion.Extension);
+            string fileName = null;
 
             if (byteArrayImageConversion.IsSuccesfull)
             {
-                using (var imageFile = new FileStream(filePath, FileMode.Create))
-                {
-                    imageFile.Write(byteArrayImageConversion.ContentByteArray, 0, byteArrayImageConversion.ContentByteArray.Length);
-                    imageFile.Flush();
-                }
+                fileName = Guid.NewGuid().ToString("N") + byteArrayImageConversion.Extension;
+                entity.Photo = "/profile_photos/" + fileName;
             }
-
-            var direccionRequest = Url.Content("~/");
-
-            var requestImage = "/profile_photos/" + identificador + byteArrayImageConversion.Extension;
-
-            entity.Photo = requestImage;
+            else
+            {
+                entity.Photo = null;
+            }
 
             var responseEntity = await _entityService.PostEntity(entity);
 
             bool notError = responseEntity == null;
 
-            if(notError)
+            if(!notError)
             {
-                return CreatedAtAction(nameof(GetEntity), new { id = entity.idEntity }, entity);
+                return BadRequest(responseEntity);
             }
 
-            return BadRequest(responseEntity);
+            if (fileName != null)
+            {
+                string folder = Path.Combine(_hostEnvironment.ContentRootPath, "wwwroot", "profile_photos");
+                Directory.CreateDirectory(folder);
+                await System.IO.File.WriteAllBytesAsync(Path.Combine(folder, fileName), byteArrayImageConversion.ContentByteArray);
+            }
+
+            return CreatedAtAction(nameof(GetEntity), new { id = entity.idEntity }, entity);
         }
 
 
@@ -123,31 +123,17 @@ namespace PetFinderApi.Controllers
             //var requestImage = "/profile_photos/" + identificador + byteArrayImageConversion.Extension;
 
             //entity.Photo = requestImage;
-            //var responseService = await _entityService.PutEntity(entity, id);
+            var responseService = await _entityService.PutEntity(entity, id);
 
-            //bool AllGood = responseService == null;
+            bool AllGood = responseService == null;
 
-            if (id != entity.idEntity)
+            if (!AllGood)
             {
-                return BadRequest();
+                return BadRequest(responseService);
             }
 
-            try
-            {
-                _DbFinder.Entry(entity).State = EntityState.Modified;
-                await _DbFinder.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-            //if (AllGood)
-            //{
-            //    _DbFinder.Entry(entity).State = EntityState.Modified;
-            //    await _DbFinder.SaveChangesAsync();
-            //}
+            _DbFinder.Entry(entity).State = EntityState.Modified;
+            await _DbFinder.SaveChangesAsync();
 
             return entity;
         }

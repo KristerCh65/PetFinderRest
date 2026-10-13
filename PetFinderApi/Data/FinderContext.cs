@@ -13,9 +13,15 @@ namespace PetFinderApi.Data
         public DbSet<Entity> Entities { get; set; }
         public DbSet<Report> Reports { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder option)
+        public FinderContext(DbContextOptions<FinderContext> options) : base(options)
         {
-            option.UseSqlServer(@"Server=DESKTOP-0S6O742;Database=PetFinderDB;Trusted_Connection=true;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Entity>().HasIndex(e => e.Email).IsUnique();
+            modelBuilder.Entity<Entity>().HasIndex(e => e.UserName).IsUnique();
+            modelBuilder.Entity<Entity>().HasIndex(e => e.Identification).IsUnique();
         }
 
     }

@@ -43,6 +43,15 @@ namespace PetFinderApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Report>> PostReport(Report report)
         {
+            if (report.pet == null)
+            {
+                return BadRequest("Pet is required!");
+            }
+
+            if (!await _DbFinder.Entities.AnyAsync(e => e.idEntity == report.idEntity))
+            {
+                return BadRequest("Entity doesnt exists!");
+            }
 
             var p = new Pet();
 
@@ -65,17 +74,19 @@ namespace PetFinderApi.Controllers
                 return BadRequest();
             }
 
-            _DbFinder.Reports.Add(new Report
+            var newReport = new Report
             {
                 RescueDate = report.RescueDate,
                 idEntity = report.idEntity,
                 idPet = p.idPet,
                 Status = report.Status
-            });
+            };
+
+            _DbFinder.Reports.Add(newReport);
             await _DbFinder.SaveChangesAsync();
 
 
-            return CreatedAtAction("GetReport", new { id = report.id }, report);
+            return CreatedAtAction("GetReport", new { id = newReport.id }, newReport);
 
         }
 
@@ -87,6 +98,16 @@ namespace PetFinderApi.Controllers
                 return BadRequest();
             }
 
+            if (!await _DbFinder.Reports.AnyAsync(r => r.id == id))
+            {
+                return NotFound();
+            }
+
+            if (!await _DbFinder.Pets.AnyAsync(p => p.idPet == report.idPet) || !await _DbFinder.Entities.AnyAsync(e => e.idEntity == report.idEntity))
+            {
+                return BadRequest("Pet or Entity doesnt exists!");
+            }
+
             _DbFinder.Entry(report).State = EntityState.Modified;
             await _DbFinder.SaveChangesAsync();
 
@@ -96,7 +117,7 @@ namespace PetFinderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Report>> DeleteReport(long id)
         {
-            var report = await _DbFinder.Reports.FirstAsync(r => r.id == id);
+            var report = await _DbFinder.Reports.FirstOrDefaultAsync(r => r.id == id);
 
             if(report == null)
             {

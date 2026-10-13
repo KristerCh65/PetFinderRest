@@ -14,6 +14,12 @@ namespace PetFinderApi.ImageManager
 
         public ByteArrayImageConversion(string base64String)
         {
+            if (string.IsNullOrEmpty(base64String) || !base64String.StartsWith("data:image/"))
+            {
+                IsSuccesfull = false;
+                return;
+            }
+
             string[] base64StringArrayCommaSplit = base64String.Split(",");
             if(base64StringArrayCommaSplit.Length < 2)
             {
@@ -30,7 +36,14 @@ namespace PetFinderApi.ImageManager
             }
             catch (Exception)
             {
-                throw;
+                IsSuccesfull = false;
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Extension))
+            {
+                IsSuccesfull = false;
+                return;
             }
 
             try
