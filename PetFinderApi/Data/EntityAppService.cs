@@ -16,6 +16,18 @@ namespace PetFinderApi.Data
             _DbFinder = _context;
         }
 
+        public async Task<Boolean> GetByAuth(string authId)
+        {
+            var entity = await _DbFinder.Entities.FirstOrDefaultAsync(x => x.auth0Id == authId);
+
+            if(entity != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<string> PostEntity(Entity entity)
         {
             var email = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.Email == entity.Email);
@@ -23,6 +35,7 @@ namespace PetFinderApi.Data
             var identidad = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.Identification == entity.Identification);
 
             var user = await _DbFinder.Entities.FirstOrDefaultAsync(u => u.UserName == entity.UserName);
+
 
             if (email != null)
             {
@@ -58,6 +71,13 @@ namespace PetFinderApi.Data
             var identidad = await _DbFinder.Entities.FirstOrDefaultAsync(e => e.Identification == entity.Identification && e.idEntity != id);
 
             var user = await _DbFinder.Entities.FirstOrDefaultAsync(u => u.UserName == entity.UserName && u.idEntity != id);
+
+            var idEntidad = await _DbFinder.Entities.FirstOrDefaultAsync(i => i.idEntity == entity.idEntity);
+
+            if (idEntidad == null)
+            {
+                return "ID doesnt exists!";
+            }
 
             if (email != null)
             {

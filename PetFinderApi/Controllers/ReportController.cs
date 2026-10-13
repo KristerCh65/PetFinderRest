@@ -30,7 +30,7 @@ namespace PetFinderApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Report>> GetReport(long id)
         {
-            var report = await _DbFinder.Reports.Include(r => r.pet).Include(r => r.entity).FirstOrDefaultAsync(r => r.Case == id);
+            var report = await _DbFinder.Reports.Include(r => r.pet).Include(r => r.entity).FirstOrDefaultAsync(r => r.id == id);
 
             if (report == null)
             {
@@ -43,17 +43,46 @@ namespace PetFinderApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Report>> PostReport(Report report)
         {
-            _DbFinder.Reports.Add(report);
+
+            var p = new Pet();
+
+            p.NamePet = report.pet.NamePet;
+            p.Specie = report.pet.Specie;
+            p.Race = report.pet.Race;
+            p.description = report.pet.description;
+            p.Age = report.pet.Age;
+            p.Size = report.pet.Size;
+            p.Photo = report.pet.Photo;
+
+            _DbFinder.Pets.Add(p);
+            try
+            {
+                await _DbFinder.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
+            _DbFinder.Reports.Add(new Report
+            {
+                RescueDate = report.RescueDate,
+                idEntity = report.idEntity,
+                idPet = p.idPet,
+                Status = report.Status
+            });
             await _DbFinder.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetReport), new { id = report.Case }, report);
+
+            return CreatedAtAction("GetReport", new { id = report.id }, report);
 
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Report>> PutReport(long id, Report report)
         {
-            if (id != report.Case)
+            if (id != report.id)
             {
                 return BadRequest();
             }
@@ -67,7 +96,7 @@ namespace PetFinderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Report>> DeleteReport(long id)
         {
-            var report = await _DbFinder.Reports.FirstOrDefaultAsync(r => r.Case == id);
+            var report = await _DbFinder.Reports.FirstOrDefaultAsync(r => r.id == id);
 
             if(report == null)
             {

@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetFinderApi.Data;
 
-#nullable disable
-
 namespace PetFinderApi.Migrations
 {
     [DbContext(typeof(FinderContext))]
@@ -17,25 +15,22 @@ namespace PetFinderApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .UseIdentityColumns()
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("PetFinderApi.Models.Entity", b =>
                 {
                     b.Property<long>("idEntity")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("idEntity"));
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Facebook")
                         .HasColumnType("nvarchar(max)");
@@ -61,23 +56,15 @@ namespace PetFinderApi.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Whatsapp")
                         .HasColumnType("bit");
 
+                    b.Property<string>("auth0Id")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("idEntity");
-
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
-
-                    b.HasIndex("Identification")
-                        .IsUnique();
-
-                    b.HasIndex("UserName")
-                        .IsUnique();
 
                     b.ToTable("Entities");
                 });
@@ -86,9 +73,8 @@ namespace PetFinderApi.Migrations
                 {
                     b.Property<long>("idPet")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("idPet"));
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -110,6 +96,9 @@ namespace PetFinderApi.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(20)");
 
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("idPet");
 
                     b.ToTable("Pets");
@@ -117,41 +106,43 @@ namespace PetFinderApi.Migrations
 
             modelBuilder.Entity("PetFinderApi.Models.Report", b =>
                 {
-                    b.Property<long>("Case")
+                    b.Property<long>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Case"));
-
-                    b.Property<long>("PetLost")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ReportedBy")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("RescueDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Case");
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("PetLost");
+                    b.Property<long>("idEntity")
+                        .HasColumnType("bigint");
 
-                    b.HasIndex("ReportedBy");
+                    b.Property<long>("idPet")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("idEntity");
+
+                    b.HasIndex("idPet");
 
                     b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("PetFinderApi.Models.Report", b =>
                 {
-                    b.HasOne("PetFinderApi.Models.Pet", "pet")
+                    b.HasOne("PetFinderApi.Models.Entity", "entity")
                         .WithMany()
-                        .HasForeignKey("PetLost")
+                        .HasForeignKey("idEntity")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PetFinderApi.Models.Entity", "entity")
+                    b.HasOne("PetFinderApi.Models.Pet", "pet")
                         .WithMany()
-                        .HasForeignKey("ReportedBy")
+                        .HasForeignKey("idPet")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

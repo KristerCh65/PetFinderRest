@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,6 +16,8 @@ namespace PetFinderApi.Models
         [Required]
         [Column(TypeName ="varchar(20)")]
         public string Identification { get; set; }
+
+        public string auth0Id { get; set; }
 
         [Required]
         [MaxLength(50)]
